@@ -31,12 +31,12 @@ describe('login page', () => {
                 cy.get('[data-cy="detail-product-stock"]').invoke('text').as('stockText');
                 cy.get('@stockText').then((stockText) => {
                     cy.log(`Contenu brut du stock : "${stockText}"`);
-                    const match = stockText.match(/-?\d+/); // Inclut les nombres négatifs
+                    const stock = stockText.match(/-?\d+/); // Inclut les nombres négatifs
 
-                    if (match) {
+                    if (stock) {
                         stockInial = parseInt(match[0], 10);
                         cy.log(`Stock numérique : ${stockInial}`);
-                        //expect(stock).to.be.greaterThan(1); // Testez le stock selon vos attentes
+                        expect(stock).to.be.greaterThan(1); // Testez le stock selon vos attentes
                     } else {
                         throw new Error('Aucun nombre trouvé dans le texte du stock');
                     }
