@@ -1,9 +1,3 @@
-Cypress.on('fail', (error, runnable) => {
-    // Log l'erreur pour référence, puis la retourne pour continuer le test
-    cy.log(`Erreur capturée : ${error.message}`);
-    return false; // Retourne `false` pour empêcher l'échec du test
-});
-
 var actualCartAmount = 0;
 describe('login page', () => {
     for (let Id_product = 3; Id_product <= 10; Id_product++) {
@@ -15,7 +9,7 @@ describe('login page', () => {
             cy.get('button[data-cy="login-submit"]').click()
             cy.contains('button', 'Voir les produits').should('be.visible');
 
-            cy.intercept('GET', '**/products/3').as('getProduct'); 
+            cy.intercept('GET', `**/products/${Id_product}`).as('getProduct'); 
 
             // Visiter la page du produit
             // Recuperer le nom du produit
@@ -31,12 +25,12 @@ describe('login page', () => {
                 cy.get('[data-cy="detail-product-stock"]').invoke('text').as('stockText');
                 cy.get('@stockText').then((stockText) => {
                     cy.log(`Contenu brut du stock : "${stockText}"`);
-                    const stock = stockText.match(/-?\d+/); // Inclut les nombres négatifs
+                    const match = stockText.match(/-?\d+/); // Inclut les nombres négatifs
 
-                    if (stock) {
+                    if (match) {
                         stockInial = parseInt(match[0], 10);
                         cy.log(`Stock numérique : ${stockInial}`);
-                        expect(stock).to.be.greaterThan(1); // Testez le stock selon vos attentes
+                        expect(stockInial).to.be.greaterThan(1); // Testez le stock selon vos attentes
                     } else {
                         throw new Error('Aucun nombre trouvé dans le texte du stock');
                     }
