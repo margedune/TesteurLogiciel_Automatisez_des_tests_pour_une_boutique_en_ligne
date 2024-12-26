@@ -6,7 +6,16 @@ describe('login page', () => {
       cy.get('button[data-cy="login-submit"]').click()
       cy.contains('button', 'Voir les produits').should('be.visible');
     })
-  })
+
+    it('Ne devrait pas se connecter avec des identifiants invalides', () => {
+      cy.visit('http://localhost:8080/#/login');
+      cy.get('#username').type('invalide@test.fr');
+      cy.get('#password').type('wrongpassword');
+      cy.get('button[data-cy="login-submit"]').click();
+      cy.contains('Identifiants incorrects').should('be.visible'); // Vérifiez le message d'erreur attendu
+    });
+  });
+  
 
 
  
