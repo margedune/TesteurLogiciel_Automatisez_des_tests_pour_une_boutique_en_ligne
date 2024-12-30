@@ -130,7 +130,7 @@ describe('API Tests - Login', () => {
           Authorization: `Bearer ${authToken}`
         },
         body: {
-          productId: 1, 
+          title: "test review", 
           rating: 5,
           comment: 'Excellent produit!'
         }
