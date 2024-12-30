@@ -1,72 +1,83 @@
-describe('Orders API Tests', () => {
-	it('should return 403 when trying to access orders without authentication', () => {
-		cy.request({
-			method: 'GET',
-			url: 'http://localhost:8081/orders',
-			failOnStatusCode: false // Ne pas échouer le test sur un statut HTTP 4xx/5xx
-		}).then((response) => {
-			expect(response.status).to.eq(403);
-		});
-	});
-});
-
-describe('API Tests - Cart Products List', () => {
-	const baseUrl = 'http://localhost:8081';
-	let authToken;
-
-	// Fonction d'aide pour la connexion
-	const login = (username, password) => {
-		return cy.request({
-			method: 'POST',
-			url: `${baseUrl}/login`,
-			body: {
-				username,
-				password
-			},
-			failOnStatusCode: false
-		});
-	};
-
-	before(() => {
-		// Connexion avec un utilisateur connu pour obtenir le token d'authentification
-		login('test2@test.fr', 'testtest')
-			.then((response) => {
-				expect(response.status).to.equal(200);
-				authToken = response.body.token; // Supposons que le token est dans le corps de la réponse
-			});
-	});
-
-	it('devrait retourner la liste des produits dans le panier', () => {
-		cy.request({
-			method: 'GET',
-			url: `${baseUrl}/orders`,
-			headers: {
-				Authorization: `Bearer ${authToken}`
-			}
-		}).then((response) => {
-			expect(response.status).to.equal(200);
-			const orderLines = response.body.orderLines;
-			expect(orderLines).to.be.an('array');
-			expect(orderLines).to.have.length(1);
-			// D'autres assertions peuvent être ajoutées en fonction de la structure de la réponse
-		});
-	});
-});
-/*
-describe('API Tests - Specific Product Details', () => {
-	const baseUrl = 'http://localhost:8081';
+describe('Tests d\'API pour le site e-commerce', () => {
+    const baseUrl = 'http://localhost:8081';
+    let authToken;
   
-	it('devrait retourner la fiche produit pour un ID spécifique', () => {
-	  const productId = 1; // Spécifiez l'ID du produit que vous voulez tester
+    // Fonction d'aide pour récupérer un token valide avant les tests
+    const getAuthToken = () => {
+      return cy.request({
+        method: 'POST',
+        url: `${baseUrl}/login`, // Remplacez par votre endpoint d'authentification
+        body: {
+          username: 'test2@test.fr', // Remplacez par un utilisateur valide
+          password: 'testtest'  // Remplacez par le mot de passe correct
+        }
+      }).then((response) => {
+        expect(response.status).to.eq(200); // Vérifie que l'authentification réussit
+        return response.body.token; // Retourne le token reçu
+      });
+    };
   
-	  cy.request({
-		method: 'GET',
-		url: `${baseUrl}/products/${productId}`
-	  }).then((response) => {
-		expect(response.status).to.equal(200);
-		expect(response.body).to.have.property('id', productId);
-		// D'autres assertions peuvent être ajoutées en fonction de la structure de la réponse
-	  });
-	});
+    before(() => {
+      // Obtenir un jeton valide avant l'exécution des tests
+      getAuthToken().then((token) => {
+        authToken = token; // Stocke le jeton pour les tests suivants
+      });
+    });
+  
+    context('GET /orders sans authentification', () => {
+      it('Devrait retourner une erreur 401 si l\'utilisateur n\'est pas authentifié', () => {
+        cy.request({
+          method: 'GET',
+          url: `${baseUrl}/orders`,
+          failOnStatusCode: false // Permet de capturer les réponses même avec des statuts d'erreur
+        }).then((response) => {
+          // Vérification du statut HTTP
+          expect(response.status).to.eq(401); // Non authentifié
+          expect(response.body).to.have.property('code', 401); // Vérifie le code d'erreur dans la réponse
+          expect(response.body).to.have.property('message'); // Vérifie qu'un message d'erreur est présent
+        });
+      });
+    });
+  
+    context('GET /orders avec authentification', () => {
+      it('Devrait retourner la liste des produits dans le panier', () => {
+        cy.request({
+          method: 'GET',
+          url: `${baseUrl}/orders`,
+          headers: {
+            Authorization: `Bearer ${authToken}` // Jeton d'accès
+          }
+        }).then((response) => {
+          // Vérification du statut HTTP
+          expect(response.status).to.eq(200); // Succès
+          expect(response.body.orderLines).to.be.an('array'); // La réponse doit être une liste (tableau)
+          response.body.orderLines.forEach((orderLine) => {
+            // Vérifications spécifiques pour chaque produit
+            expect(orderLine).to.have.property('id');
+            expect(orderLine).to.have.property('product');
+            expect(orderLine.product).to.have.property('id');
+            expect(orderLine.product).to.have.property('name');
+          });
+        });
+      });
+    });
+  
+    context('GET /products/{id}', () => {
+      it('Devrait retourner la fiche d\'un produit spécifique', () => {
+        const productId = 3; // Remplacez par un ID valide d’un produit
+  
+        cy.request({
+          method: 'GET',
+          url: `${baseUrl}/products/${productId}`
+        }).then((response) => {
+          // Vérification du statut HTTP
+          expect(response.status).to.eq(200); // Succès
+          // Vérifications sur le contenu du produit
+          expect(response.body).to.have.property('id', productId); // Vérifie l'ID du produit
+          expect(response.body).to.have.property('name'); // Vérifie que le produit a un nom
+          expect(response.body).to.have.property('price'); // Vérifie que le produit a un prix
+          expect(response.body).to.have.property('description'); // Vérifie la description
+        });
+      });
+    });
   });
-  */
