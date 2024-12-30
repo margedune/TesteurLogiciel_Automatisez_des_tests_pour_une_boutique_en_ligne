@@ -1,20 +1,42 @@
-# Installation du projet
-1. Téléchargez ou clonez le dépôt
-2. Depuis un terminal ouvert dans le dossier du projet, lancer la commande : `docker-compose up --build`
-3. Ouvrez le site depuis la page http://localhost:8080 
-configurations dans le fichier cypress.json
-# Login
-User name : test2@test.fr
-password : “testtest”
-# Fonctionnalités testées
-1. Login
-Connexion avec des identifiants valides.
-Connexion avec des identifiants invalides.
-Gestion des erreurs: message d'erreur.
-2. Panier
-Ajout d'un produit au panier.
-Suppression d'un produit du panier.
-Vérification des stocks.
-3. API
-Vérification des réponses des endpoints: GET, POST.
-Validation des statuts HTTP et des données JSON.
+# Projet e-Commerce API
+
+## Description
+Une API REST pour gérer un site e-commerce avec des fonctionnalités telles que la gestion des utilisateurs, des produits, et des commandes.
+
+## Prérequis
+- Node.js >= 16.0.0
+- NPM >= 7.0.0
+- MySQL >= 8.0
+
+## Installation du projet
+1. Clonez le dépôt :
+   ```bash
+   git clone https://github.com/OpenClassrooms-Student-Center/TesteurLogiciel_Automatisez_des_tests_pour_une_boutique_en_ligne.git
+   ```
+2. Accédez au répertoire :
+   ```bash
+   C:\projet_automatisation
+   ```
+3. Installez les dépendances :
+   ```bash
+   npm install
+   ```
+4. Installez cypress :
+   ```bash
+   npm install cypress --save-dev
+   ```
+5. Depuis un terminal ouvert dans le dossier du projet, lancer la commande :
+   ```bash
+   `docker-compose up --build`
+   ```
+
+
+## Utilisation
+L'API est accessible via `http://localhost:8081`. Vous pouvez consulter les routes principales dans `http://localhost:8081/api/doc`.
+
+## Tests
+Pour exécuter les tests :
+```bash
+npx cypress open
+```
+

@@ -56,7 +56,9 @@ describe('API Tests - Login', () => {
           Authorization: `Bearer ${authToken}`
         },
         body: {
-          productId: 1, // ID du produit disponible
+          product: { 
+            id: 5 // L'ID du produit encapsulé dans un objet 
+          }, // ID du produit disponible
           quantity: 1
         }
       }).then((response) => {
