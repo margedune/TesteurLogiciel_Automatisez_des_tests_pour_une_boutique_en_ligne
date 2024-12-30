@@ -30,7 +30,7 @@ describe('API Tests - Login', () => {
     });
   });
 
-  describe('API Tests - Add Available Product to Cart', () => {
+  describe('API Tests - Ajout produit disponible au panier', () => {
     const baseUrl = 'http://localhost:8081';
     let authToken;
   
@@ -67,7 +67,7 @@ describe('API Tests - Login', () => {
     
   });
 
-  describe('API Tests - Add Out of Stock Product to Cart', () => {
+  describe('API Tests - Ajout produit en rupture de stock au panier', () => {
     const baseUrl = 'http://localhost:8081';
     let authToken;
   
@@ -104,7 +104,7 @@ describe('API Tests - Login', () => {
     });
   });
   
-  describe('API Tests - Add Review', () => {
+  describe('API Tests - Ajout avis', () => {
     const baseUrl = 'http://localhost:8081';
     let authToken;
   

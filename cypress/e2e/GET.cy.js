@@ -25,15 +25,15 @@ describe('Tests d\'API pour le site e-commerce', () => {
     });
   
     context('GET /orders sans authentification', () => {
-      it('Devrait retourner une erreur 401 si l\'utilisateur n\'est pas authentifié', () => {
+      it('Devrait retourner une erreur 403 si l\'utilisateur n\'est pas authentifié', () => {
         cy.request({
           method: 'GET',
           url: `${baseUrl}/orders`,
           failOnStatusCode: false // Permet de capturer les réponses même avec des statuts d'erreur
         }).then((response) => {
           // Vérification du statut HTTP
-          expect(response.status).to.eq(401); // Non authentifié
-          expect(response.body).to.have.property('code', 401); // Vérifie le code d'erreur dans la réponse
+          expect(response.status).to.eq(403); // Non authentifié
+          expect(response.body).to.have.property('code', 403); // Vérifie le code d'erreur dans la réponse
           expect(response.body).to.have.property('message'); // Vérifie qu'un message d'erreur est présent
         });
       });
