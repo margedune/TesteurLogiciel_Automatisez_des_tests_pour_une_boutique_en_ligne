@@ -14,7 +14,12 @@ describe('login page', () => {
       cy.get('button[data-cy="login-submit"]').click();
       cy.contains('Identifiants incorrects').should('be.visible'); // Vérifiez le message d'erreur attendu
     });
+    it('Ne devrait pas se connecter avec des champs vides', () => {
+      cy.visit('http://localhost:8080/#/login');
+      cy.get('button[data-cy="login-submit"]').click(); // Tentative de connexion sans remplir les champs
+      cy.contains('Merci de remplir correctement tous les champs').should('be.visible'); // Vérifiez le message d'erreur attendu
   });
+});
   
 
 
