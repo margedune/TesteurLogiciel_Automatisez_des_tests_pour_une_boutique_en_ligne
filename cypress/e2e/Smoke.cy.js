@@ -1,4 +1,7 @@
 describe('Login Fields Presence', () => {
+    const validUsername = Cypress.env('validUsername');
+    const validPassword = Cypress.env('validPassword');
+
     it('should display login fields and buttons', () => {
         cy.visit('http://localhost:8080/#/login'); 
     
@@ -15,8 +18,8 @@ describe('Login Fields Presence', () => {
 describe('Product Availability Field Presence', () => {
     before(() => {
         cy.visit('http://localhost:8080/#/login')
-        cy.get('#username').type('test2@test.fr')
-        cy.get('#password').type('testtest')
+        cy.get('#username').type(validUsername)
+        cy.get('#password').type(validPassword)
         cy.get('button[data-cy="login-submit"]').click()
         cy.contains('button', 'Voir les produits').should('be.visible'); 
     });

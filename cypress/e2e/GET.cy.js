@@ -1,5 +1,8 @@
 describe('Tests d\'API pour le site e-commerce', () => {
     const baseUrl = 'http://localhost:8081';
+    const validUsername = Cypress.env('validUsername');
+    const validPassword = Cypress.env('validPassword');
+    
     let authToken;
   
     // Fonction d'aide pour récupérer un token valide avant les tests
@@ -8,8 +11,8 @@ describe('Tests d\'API pour le site e-commerce', () => {
         method: 'POST',
         url: `${baseUrl}/login`, // Remplacez par votre endpoint d'authentification
         body: {
-          username: 'test2@test.fr', // Remplacez par un utilisateur valide
-          password: 'testtest'  // Remplacez par le mot de passe correct
+          username: validUsername, // Remplacez par un utilisateur valide
+          password: validPassword // Remplacez par le mot de passe correct
         }
       }).then((response) => {
         expect(response.status).to.eq(200); // Vérifie que l'authentification réussit

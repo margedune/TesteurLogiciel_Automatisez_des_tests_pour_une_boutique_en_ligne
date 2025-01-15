@@ -1,13 +1,17 @@
 describe('API Tests - Login', () => {
     const baseUrl = 'http://localhost:8081';
-  
+    const validUsername = Cypress.env('validUsername');
+    const validPassword = Cypress.env('validPassword');
+    const invalidUsername = Cypress.env('invalidUsername');
+    const invalidPassword = Cypress.env('invalidPassword');
+
     it('devrait retourner 401 pour un utilisateur inconnu', () => {
       cy.request({
         method: 'POST',
         url: `${baseUrl}/login`,
         body: {
-          username: 'utilisateurInconnu',
-          password: 'mauvaisMotDePasse'
+          username: invalidUsername,
+          password: invalidPassword
         },
         failOnStatusCode: false
       }).then((response) => {
@@ -20,8 +24,8 @@ describe('API Tests - Login', () => {
         method: 'POST',
         url: `${baseUrl}/login`,
         body: {
-          username: 'test2@test.fr',
-          password: 'testtest'
+          username: validUsername,
+          password: validPassword
         }
       }).then((response) => {
         expect(response.status).to.equal(200);
@@ -39,8 +43,8 @@ describe('API Tests - Login', () => {
         method: 'POST',
         url: `${baseUrl}/login`,
         body: {
-          username: 'test2@test.fr',
-          password: 'testtest'
+          username: validUsername,
+          password: validPassword
         }
       }).then((response) => {
         expect(response.status).to.equal(200);
@@ -78,8 +82,8 @@ describe('API Tests - Login', () => {
         method: 'POST',
         url: `${baseUrl}/login`,
         body: {
-          username: 'test2@test.fr',
-          password: 'testtest'
+          username: validUsername,
+          password: validPassword
         }
       }).then((response) => {
         expect(response.status).to.equal(200);
@@ -115,8 +119,8 @@ describe('API Tests - Login', () => {
         method: 'POST',
         url: `${baseUrl}/login`,
         body: {
-          username: 'test2@test.fr',
-          password: 'testtest'
+          username: validUsername,
+          password: validPassword
         }
       }).then((response) => {
         expect(response.status).to.equal(200);

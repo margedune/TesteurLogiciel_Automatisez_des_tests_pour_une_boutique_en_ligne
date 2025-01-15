@@ -1,12 +1,12 @@
 var actualCartAmount = 0;
 describe('login page', () => {
+    const validUsername = Cypress.env('validUsername');
+    const validPassword = Cypress.env('validPassword');
+
     for (let Id_product = 3; Id_product <= 10; Id_product++) {
         it('Ajout de produit au panier avec vérifications', () => {
             // Authentification
-            cy.visit('http://localhost:8080/#/login')
-            cy.get('#username').type('test2@test.fr')
-            cy.get('#password').type('testtest')
-            cy.get('button[data-cy="login-submit"]').click()
+            cy.login(validUsername, validPassword);
             cy.contains('button', 'Voir les produits').should('be.visible');
 
             cy.intercept('GET', `**/products/${Id_product}`).as('getProduct'); 
