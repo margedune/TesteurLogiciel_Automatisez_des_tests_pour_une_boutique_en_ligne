@@ -16,7 +16,7 @@ describe('login page', () => {
             cy.visit(`http://localhost:8080/#/products/${Id_product}`);
             cy.get('[data-cy="detail-product-name"]').invoke('text').as('productName');
 
-            // Attendre que l'appel rés;eau soit terminé
+            // Attendre que l'appel réseau soit terminé
             let stockInial = 0
             cy.wait('@getProduct').then((interception) => {
                 cy.log('Requête AJAX terminée', interception);
