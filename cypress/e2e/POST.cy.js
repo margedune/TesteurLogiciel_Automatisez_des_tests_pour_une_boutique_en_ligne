@@ -1,10 +1,10 @@
-describe('API Tests - Login', () => {
-    const baseUrl = 'http://localhost:8081';
-    const validUsername = Cypress.env('validUsername');
-    const validPassword = Cypress.env('validPassword');
-    const invalidUsername = Cypress.env('invalidUsername');
-    const invalidPassword = Cypress.env('invalidPassword');
+const baseUrl = 'http://localhost:8081';
+const validUsername = Cypress.env('validUsername');
+const validPassword = Cypress.env('validPassword');
+const invalidUsername = Cypress.env('invalidUsername');
+const invalidPassword = Cypress.env('invalidPassword');
 
+describe('API Tests - Login', () => {
     it('devrait retourner 401 pour un utilisateur inconnu', () => {
       cy.request({
         method: 'POST',
@@ -35,7 +35,6 @@ describe('API Tests - Login', () => {
   });
 
   describe('API Tests - Ajout produit disponible au panier', () => {
-    const baseUrl = 'http://localhost:8081';
     let authToken;
   
     before(() => {
@@ -74,7 +73,6 @@ describe('API Tests - Login', () => {
   });
 
   describe('API Tests - Ajout produit en rupture de stock au panier', () => {
-    const baseUrl = 'http://localhost:8081';
     let authToken;
   
     before(() => {
@@ -111,7 +109,6 @@ describe('API Tests - Login', () => {
   });
   
   describe('API Tests - Ajout avis', () => {
-    const baseUrl = 'http://localhost:8081';
     let authToken;
   
     before(() => {

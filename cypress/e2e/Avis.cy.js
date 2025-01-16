@@ -35,8 +35,8 @@ describe('Test de gestion des entrées très longues pour un avis', () => {
         const xssComment = '<script>alert("XSS")</script>'; // Exemple de script malveillant
       
         // Définir le stub pour intercepter les alertes
-        cy.window().then((win) => {
-        cy.stub(win, 'alert').as('alertStub'); // Définir et aliaser
+        cy.window().then((win) => { // accéder à l'objet window du navigateur
+        cy.stub(win, 'alert').as('alertStub'); // surveiller ou simuler le comportement d'une fonction et alias le stub avec le nom alertStub
     });
         // Remplir les champs du formulaire
         cy.get('[data-cy="review-input-title"]').type('Avis avec injection XSS'); // Titre

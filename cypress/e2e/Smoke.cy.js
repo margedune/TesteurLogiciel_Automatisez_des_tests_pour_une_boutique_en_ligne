@@ -1,7 +1,7 @@
-describe('Login Fields Presence', () => {
-    const validUsername = Cypress.env('validUsername');
-    const validPassword = Cypress.env('validPassword');
+const validUsername = Cypress.env('validUsername');
+const validPassword = Cypress.env('validPassword');
 
+describe('Login Fields Presence', () => {
     it('should display login fields and buttons', () => {
         cy.visit('http://localhost:8080/#/login'); 
     
