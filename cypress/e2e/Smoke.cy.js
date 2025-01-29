@@ -2,7 +2,7 @@ const validUsername = Cypress.env('validUsername');
 const validPassword = Cypress.env('validPassword');
 
 describe('Login Fields Presence', () => {
-    it('should display login fields and buttons', () => {
+    it('devrait afficher les champs et les boutons de connexion', () => {
         cy.visit('http://localhost:8080/#/login'); 
     
         // Vérifiez la présence des champs de connexion
@@ -15,7 +15,7 @@ describe('Login Fields Presence', () => {
     });
 });
 
-describe('Product Availability Field Presence', () => {
+describe('Présence du champ de disponibilité du produit', () => {
     before(() => {
         cy.visit('http://localhost:8080/#/login')
         cy.get('#username').type(validUsername)
@@ -25,7 +25,7 @@ describe('Product Availability Field Presence', () => {
     });
 
     let productIds = [];
-    it('should display product availability field', () => {
+    it('devrait afficher le champ de disponibilité du produit', () => {
         cy.visit('http://localhost:8080/#/products'); 
   
         // Vérifiez la présence du champ de disponibilité du produit
